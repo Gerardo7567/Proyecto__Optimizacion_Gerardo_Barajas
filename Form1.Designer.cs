@@ -42,6 +42,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             label1 = new Label();
             textBox1 = new TextBox();
             button1 = new Button();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -70,7 +71,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             label3.Size = new Size(16, 20);
             label3.TabIndex = 23;
             label3.Text = "c";
-            label3.Click += this.label3_Click;
+            label3.Click += label3_Click;
             // 
             // textBox3
             // 
@@ -164,11 +165,23 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click_1;
             // 
+            // button3
+            // 
+            button3.Location = new Point(594, 297);
+            button3.Margin = new Padding(3, 4, 3, 4);
+            button3.Name = "button3";
+            button3.Size = new Size(144, 65);
+            button3.TabIndex = 26;
+            button3.Text = "Números Pseudoaleatorios";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1053, 521);
+            Controls.Add(button3);
             Controls.Add(label5);
             Controls.Add(textBox5);
             Controls.Add(label3);
@@ -210,5 +223,6 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
         private Label label1;
         private TextBox textBox1;
         private Button button1;
+        private Button button3;
     }
 }
