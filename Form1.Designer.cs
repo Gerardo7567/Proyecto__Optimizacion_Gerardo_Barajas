@@ -140,7 +140,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(142, 26);
+            label1.Location = new Point(142, 19);
             label1.Name = "label1";
             label1.Size = new Size(24, 20);
             label1.TabIndex = 15;
@@ -148,7 +148,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(265, 20);
+            textBox1.Location = new Point(265, 13);
             textBox1.Margin = new Padding(3, 4, 3, 4);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(114, 27);

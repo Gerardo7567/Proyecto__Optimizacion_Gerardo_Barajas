@@ -7,11 +7,12 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
 
     public partial class Form1 : Form
     {
+        
         public Form1()
         {
             InitializeComponent();
 
-            
+
         }
 
         public void llenarGrid(List<int> lista)
@@ -172,35 +173,34 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
 
         }
 
+        private int seed = 42; // Initial seed value
         private void button3_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Equals("") ||
-                textBox5.Text.Equals(""))
-            {
-                MessageBox.Show("Los números tienen que ser MAYOR que cero, NO VAC�OS");
-                return;
-            }
 
-            int x0 = Convert.ToInt32(textBox1.Text);// x0
+            int randomValue1 = GenerateRandomNumber();
+            textBox2.Text = randomValue1.ToString();
+            int randomValue2 = GenerateRandomNumber();
+            textBox3.Text = randomValue2.ToString();
+            int randomValue3 = GenerateRandomNumber();
+            textBox4.Text = randomValue3.ToString();
 
-            int Total = Convert.ToInt32(textBox5.Text);//total
-
-            Random generator_a = new Random();
-            Random generator_c = new Random();
-            Random generator_m = new Random();
-            int Newnumber_a = generator_a.Next(1,51);
-            int Newnumber_c = generator_c.Next(1, 51);
-            int Newnumber_m = generator_m.Next(1, 101);
-            int a = Convert.ToInt32(Newnumber_a);
-            int c = Convert.ToInt32(Newnumber_c);
-            int m = Convert.ToInt32(Newnumber_m);
-            textBox2.Text = a.ToString();
-            textBox3.Text = c.ToString();
-            textBox4.Text = m.ToString();
-
-            
         }
-        
+        private int GenerateRandomNumber()
+        {
+            // Square the current seed
+            long squaredSeed = (long)seed * seed;
+
+            // Extract the middle digits (in this case, 4 digits)
+            string squaredSeedString = squaredSeed.ToString();
+            int middleIndex = squaredSeedString.Length / 2 - 2;
+            string middleDigits = squaredSeedString.Substring(middleIndex, 4);
+
+            // Update the seed
+            seed = int.Parse(middleDigits);
+
+            return seed;
+        }
+
     }
 }
 
