@@ -42,22 +42,23 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             label1 = new Label();
             textBox1 = new TextBox();
             button1 = new Button();
-            button3 = new Button();
+            label6 = new Label();
+            textBox6 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(142, 241);
+            label5.Location = new Point(124, 377);
             label5.Name = "label5";
-            label5.Size = new Size(42, 20);
+            label5.Size = new Size(74, 20);
             label5.TabIndex = 25;
-            label5.Text = "Total";
+            label5.Text = "Promedio";
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(265, 234);
+            textBox5.Location = new Point(247, 370);
             textBox5.Margin = new Padding(3, 4, 3, 4);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(114, 27);
@@ -66,16 +67,16 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(142, 131);
+            label3.Location = new Point(124, 307);
             label3.Name = "label3";
-            label3.Size = new Size(16, 20);
+            label3.Size = new Size(58, 20);
             label3.TabIndex = 23;
-            label3.Text = "c";
+            label3.Text = "Paneles";
             label3.Click += label3_Click;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(265, 124);
+            textBox3.Location = new Point(247, 300);
             textBox3.Margin = new Padding(3, 4, 3, 4);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(114, 27);
@@ -85,15 +86,15 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(142, 165);
+            label4.Location = new Point(124, 341);
             label4.Name = "label4";
-            label4.Size = new Size(22, 20);
+            label4.Size = new Size(99, 20);
             label4.TabIndex = 21;
-            label4.Text = "m";
+            label4.Text = "Experimentos";
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(265, 159);
+            textBox4.Location = new Point(247, 335);
             textBox4.Margin = new Padding(3, 4, 3, 4);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(114, 27);
@@ -101,7 +102,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             // 
             // button2
             // 
-            button2.Location = new Point(627, 230);
+            button2.Location = new Point(806, 131);
             button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
             button2.Size = new Size(86, 31);
@@ -113,15 +114,15 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(142, 88);
+            label2.Location = new Point(124, 264);
             label2.Name = "label2";
-            label2.Size = new Size(17, 20);
+            label2.Size = new Size(18, 20);
             label2.TabIndex = 18;
-            label2.Text = "a";
+            label2.Text = "b";
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(265, 81);
+            textBox2.Location = new Point(247, 257);
             textBox2.Margin = new Padding(3, 4, 3, 4);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(114, 27);
@@ -130,25 +131,25 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(173, 297);
+            dataGridView1.Location = new Point(514, 201);
             dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(274, 200);
+            dataGridView1.Size = new Size(457, 251);
             dataGridView1.TabIndex = 16;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(142, 19);
+            label1.Location = new Point(124, 195);
             label1.Name = "label1";
-            label1.Size = new Size(24, 20);
+            label1.Size = new Size(17, 20);
             label1.TabIndex = 15;
-            label1.Text = "x0";
+            label1.Text = "a";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(265, 13);
+            textBox1.Location = new Point(247, 189);
             textBox1.Margin = new Padding(3, 4, 3, 4);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(114, 27);
@@ -156,7 +157,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             // 
             // button1
             // 
-            button1.Location = new Point(628, 12);
+            button1.Location = new Point(579, 131);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(86, 31);
@@ -165,23 +166,31 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click_1;
             // 
-            // button3
+            // label6
             // 
-            button3.Location = new Point(594, 297);
-            button3.Margin = new Padding(3, 4, 3, 4);
-            button3.Name = "button3";
-            button3.Size = new Size(144, 65);
-            button3.TabIndex = 26;
-            button3.Text = "Números Pseudoaleatorios";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            label6.AutoSize = true;
+            label6.Location = new Point(124, 430);
+            label6.Name = "label6";
+            label6.Size = new Size(95, 20);
+            label6.TabIndex = 28;
+            label6.Text = "Desv. Estand.";
+            // 
+            // textBox6
+            // 
+            textBox6.Location = new Point(247, 423);
+            textBox6.Margin = new Padding(3, 4, 3, 4);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(114, 27);
+            textBox6.TabIndex = 27;
+            textBox6.TextChanged += textBox6_TextChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1053, 521);
-            Controls.Add(button3);
+            Controls.Add(label6);
+            Controls.Add(textBox6);
             Controls.Add(label5);
             Controls.Add(textBox5);
             Controls.Add(label3);
@@ -223,6 +232,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
         private Label label1;
         private TextBox textBox1;
         private Button button1;
-        private Button button3;
+        private Label label6;
+        private TextBox textBox6;
     }
 }

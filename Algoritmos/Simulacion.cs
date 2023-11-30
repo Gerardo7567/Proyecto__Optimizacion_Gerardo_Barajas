@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto__Optimizacion_Gerardo_Barajas.Modelos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,27 @@ namespace Prueba16Nov.Algoritmos
 
             return listaSalida;
         }
-        
+        public List<Experimento> SimulacionMontecarlo(int a, int b, int numPaneles, int numExperimentos)
+        {
+            List<Experimento> listaExperimentos = new List<Experimento>();
+            for (int i = 0; i < numExperimentos; i++)
+            {
+                Experimento experimento = new Experimento();
+                List<int> paneles = new List<int>();
+
+                for (int j = 0; j < numPaneles; j++)
+                {
+                    Random random = new Random();
+                    int aleatorio = random.Next(a, b);
+                    paneles.Add(aleatorio);
+                }
+                listaExperimentos.Add(experimento);
+                experimento.listaValoresPaneles = paneles;
+            }
+            return listaExperimentos;
+        }
+
+
     }
     
 
