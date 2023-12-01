@@ -21,6 +21,8 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
         }
 
 
+
+
         public void DescargaExcel(DataGridView data)
         {
             // Paso 0: Instalar complemente de exel
@@ -90,12 +92,10 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
 
             bool CompareInfinityStrings(string input)
             {
-                return input.Trim().Equals("*", StringComparison.OrdinalIgnoreCase) ||
-                       input.Trim().Equals("inf", StringComparison.OrdinalIgnoreCase) ||
-                       input.Trim().Equals("infinito", StringComparison.OrdinalIgnoreCase) ||
-                       input.Trim().Equals("-*", StringComparison.OrdinalIgnoreCase) ||
-                       input.Trim().Equals("-inf", StringComparison.OrdinalIgnoreCase) ||
-                       input.Trim().Equals("-infinito", StringComparison.OrdinalIgnoreCase);
+                return 
+                       input.Trim().Equals("infinity", StringComparison.OrdinalIgnoreCase) ||
+                       
+                       input.Trim().Equals("-infinity", StringComparison.OrdinalIgnoreCase);
             }
 
             // Paso 2: Verificación y asignación para 'a'
@@ -105,7 +105,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             }
             else if (!double.TryParse(textBox1.Text, out a))
             {
-                MessageBox.Show("Ingresa un número válido o '-*' para el límite inferior");
+                MessageBox.Show("Por favor ingrese un Limite Inferior aceptable.");
                 return;
             }
 
@@ -116,11 +116,25 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
             }
             else if (!double.TryParse(textBox2.Text, out b))
             {
-                MessageBox.Show("Ingresa un número válido o '*' para el límite superior");
+                MessageBox.Show("Por favor ingrese un Limite Superior aceptable");
                 return;
             }
 
             // Ahora puedes usar 'a' y 'b' según tus necesidades
+            if (!double.TryParse(textBox1.Text, out double LimInf) && textBox1.Text.ToLower() != "-infinity")
+            {
+                MessageBox.Show("Por favor ingrese un Limite Inferior aceptable.");
+                return;
+            }
+            if (!double.TryParse(textBox2.Text, out double LimSup) && textBox2.Text.ToLower() != "infinity")
+            {
+                MessageBox.Show("Por favor ingrese un Limite Superior aceptable.");
+                return;
+            }
+            else if (textBox1.Text.ToLower() == "-infinity" || textBox2.Text.ToLower() == "infinity")
+            {
+
+            }
 
 
             // Paso 1.2: Validación algoritmo
