@@ -1,6 +1,10 @@
 ﻿using Proyecto__Optimizacion_Gerardo_Barajas.Modelos;
 using Prueba16Nov.Algoritmos;
+using System;
+using System.Collections.Generic;
+using System.Numerics;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Proyecto__Optimizacion_Gerardo_Barajas
 {
@@ -16,7 +20,7 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
 
         }
 
-        
+
         public void DescargaExcel(DataGridView data)
         {
             // Paso 0: Instalar complemente de exel
@@ -73,115 +77,167 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
         {
             // Paso 0: Condic�on de vac�o
             if (textBox1.Text.Equals("") ||
-                textBox2.Text.Equals("") || textBox3.Text.Equals("") ||
-                textBox4.Text.Equals(""))
+                textBox2.Text.Equals("") || textBox4.Text.Equals("")||textBox6.Text.Equals(""))
             {
                 MessageBox.Show("Los números tienen que ser MAYOR que cero, NO VAC�OS");
                 return;
             }
             // Paso 1: Inicializaci�n de par�metros
-            int a = Convert.ToInt32(textBox1.Text);
-            int b = Convert.ToInt32(textBox2.Text);
-            int numPaneles = Convert.ToInt32(textBox3.Text);
+            // Paso 1: Inicialización de parámetros
+            double a;
+            double b;
             int numExperimentos = Convert.ToInt32(textBox4.Text);
 
-
-
-            // Paso 1.2: Validación algoritmo
-            if (numPaneles <= 0 || numExperimentos <= 0)
+            bool CompareInfinityStrings(string input)
             {
-                MessageBox.Show("Los números tienen que ser MAYORES QUE CERO");
+                return input.Trim().Equals("*", StringComparison.OrdinalIgnoreCase) ||
+                       input.Trim().Equals("inf", StringComparison.OrdinalIgnoreCase) ||
+                       input.Trim().Equals("infinito", StringComparison.OrdinalIgnoreCase) ||
+                       input.Trim().Equals("-*", StringComparison.OrdinalIgnoreCase) ||
+                       input.Trim().Equals("-inf", StringComparison.OrdinalIgnoreCase) ||
+                       input.Trim().Equals("-infinito", StringComparison.OrdinalIgnoreCase);
+            }
+
+            // Paso 2: Verificación y asignación para 'a'
+            if (CompareInfinityStrings(textBox1.Text))
+            {
+                a = double.NegativeInfinity;
+            }
+            else if (!double.TryParse(textBox1.Text, out a))
+            {
+                MessageBox.Show("Ingresa un número válido o '-*' para el límite inferior");
                 return;
             }
 
-            // Paso 1.3: Validación algoritmo
+            // Paso 3: Verificación y asignación para 'b'
+            if (CompareInfinityStrings(textBox2.Text))
+            {
+                b = double.PositiveInfinity;
+            }
+            else if (!double.TryParse(textBox2.Text, out b))
+            {
+                MessageBox.Show("Ingresa un número válido o '*' para el límite superior");
+                return;
+            }
+
+            // Ahora puedes usar 'a' y 'b' según tus necesidades
+
+
+            // Paso 1.2: Validación algoritmo
             if (a > b)
             {
                 MessageBox.Show("El rango no es correcto.");
                 return;
             }
 
+            int y = Convert.ToInt32(textBox6.Text);
+            if (y != 1 && y !=2 )
+            {
+                MessageBox.Show("Los números tienen que ser 1 o 2");
+                return;
+            }
+            else
+            {
+
+            }
+            
+
 
             // Paso 2: Declarar clase algoritmo gen�tico
             AlgoritmoSimulacion algoritmo = new AlgoritmoSimulacion();
             // Paso 3: Llamar m�todo principal
-            List<Experimento> listaExperimentos = algoritmo.SimulacionMontecarlo(a, b, numPaneles, numExperimentos);
+            List<Experimento> listaExperimentos = algoritmo.SimulacionMontecarlo(a, b, numExperimentos);
 
-            // calculo de promedio
+
             double sum = 0;
-            Random random = new Random();
-            List<int> valores = new List<int>();
+            List<double> valores = new List<double>();
             foreach (Experimento experimento in listaExperimentos)
             {
-                int aleatorio = random.Next(0, numPaneles - 1);
-                int x = experimento.listaValoresPaneles[aleatorio];
+                int aleatorio = random.Next(0, numExperimentos - 1);
+                double x = experimento.listaValoresPaneles[aleatorio];
                 sum += x;
                 valores.Add(x);
             }
+            List<double> evaluacionesX = CalcularEvaluacionesX(valores, y);
 
-            double promedio = sum / numExperimentos;
-            textBox5.Text = promedio.ToString();
 
-            //calculo de desviacion estandar
             double sums = 0;
-            foreach (int x in valores)
+            double mult = 0;
+            //List<int> valoresExactos = new List<int>();
+            List<double> valoresSumados = new List<double>();
+            double division = Math.Abs(a - b) / numExperimentos;
+
+            foreach (var x in evaluacionesX)
             {
-                sums += Math.Pow(x - promedio, 2);
+                mult = x * division;
+                //sums += mult;
+                //valoresExactos.Add(x);
+                valoresSumados.Add(mult);
             }
-            double desviacionestandar = Math.Sqrt(sums / numExperimentos);
-            textBox6.Text = desviacionestandar.ToString();
+            textBox5.Text = division.ToString(); ;
+            double desviacionestandar = valoresSumados.Sum();
+            textBox3.Text = desviacionestandar.ToString();
 
-
-            // Paso 4: Llenar el grid
-            Matriz(listaExperimentos, valores);
+            Matriz(valores, evaluacionesX, valoresSumados);
         }
-        public void Matriz(List<Experimento> listaExperimentos, List<int> valores)
+
+
+        public void Matriz(List<double> valores, List<double> evaluacionesX, List<double> valoresSumados)
         {
-            int numPaneles = listaExperimentos[0].listaValoresPaneles.Count;
-            List<string> nombresColumnas = new List<string>();
 
             dataGridView1.Columns.Clear();
             dataGridView1.Columns.Add("Experimento", "Experimento");
-            for (int i = 0; i < numPaneles; i++)
-            {
-                nombresColumnas.Add(i.ToString());
-                dataGridView1.Columns.Add(nombresColumnas[i], "Panel" + (i + 1).ToString());
-            }
-            dataGridView1.Columns.Add("X(i)", "X(i)");
+            dataGridView1.Columns.Add("Valor de x", "Valor de x");
 
-            for (int i = 0; i < listaExperimentos.Count; i++)
+            dataGridView1.Columns.Add("X(i)", "X(i)");
+            dataGridView1.Columns.Add("Area actual", "Area actual");
+
+
+            for (int i = 0; i < valores.Count; i++)
             {
                 dataGridView1.Rows.Add();
                 dataGridView1.Rows[i].Cells["Experimento"].Value = (i + 1).ToString();
-                for (int j = 0; j < numPaneles; j++)
-                {
-                    int x = listaExperimentos[i].listaValoresPaneles[j];
-                    dataGridView1.Rows[i].Cells[Int32.Parse(nombresColumnas[j]) + 1].Value = x.ToString();
-                }
-                dataGridView1.Rows[i].Cells["X(i)"].Value = valores[i].ToString();
+                dataGridView1.Rows[i].Cells["Valor de x"].Value = valores[i].ToString();
+                dataGridView1.Rows[i].Cells["X(i)"].Value = evaluacionesX[i].ToString();
+                dataGridView1.Rows[i].Cells["Area actual"].Value = valoresSumados[i].ToString();
             }
+
+
         }
 
-        public void llenarGrid(List<int> lista)
+
+        public List<double> CalcularEvaluacionesX(List<double> valores,int y)
         {
+            List<double> evaluacionesX = new List<double>();
+            
+            
+            // Función a integrar: f(x) = 2 / (e^x + e^(-x))
+            Func<double, double> funcB = x => (y / (Math.Exp(x) + Math.Exp(-x)));
 
-            // Paso 0: Indicas el n�mero de columnas
-            string numeroColumna1 = "1";
-            string numeroColumna2 = "2";
+            // Puedes ajustar el rango [a, b] según tus necesidades
 
-            // Paso 1: Determinas la cantidad de columnas
-            dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add(numeroColumna1, "Id");
-            dataGridView1.Columns.Add(numeroColumna2, "Valor");
 
-            //Paso 2: Recorres el grid para cada fila llenas los valores aleatorios
-            for (int i = 0; i < lista.Count; i++)
+            foreach (double experimento in valores)
             {
-                dataGridView1.Rows.Add();
-                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna1) - 1].Value = (i + 1).ToString();
-                dataGridView1.Rows[i].Cells[Int32.Parse(numeroColumna2) - 1].Value = lista[i].ToString();
+                // Generar una muestra de x_i ~ U(a, b)
+                double x = experimento;
+
+                // Evaluar en la función f(x)
+                double fx = funcB(x);
+
+                // Agregar la evaluación de x a la lista
+                evaluacionesX.Add(fx);
             }
 
+            return evaluacionesX;
+        }
+
+        private static Random random = new Random();
+
+
+        private static double RandomDouble(double minValue, double maxValue)
+        {
+            return random.NextDouble() * (maxValue - minValue) + minValue;
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -194,11 +250,19 @@ namespace Proyecto__Optimizacion_Gerardo_Barajas
 
         }
 
-        
+        private void textBox5_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-
+             
         }
     }
 }

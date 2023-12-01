@@ -37,28 +37,28 @@ namespace Prueba16Nov.Algoritmos
 
             return listaSalida;
         }
-        public List<Experimento> SimulacionMontecarlo(int a, int b, int numPaneles, int numExperimentos)
+        public List<Experimento> SimulacionMontecarlo(double a, double b, int numExperimentos)
         {
             List<Experimento> listaExperimentos = new List<Experimento>();
+            Random random = new Random(); // Mover fuera del bucle
+
             for (int i = 0; i < numExperimentos; i++)
             {
                 Experimento experimento = new Experimento();
-                List<int> paneles = new List<int>();
+                List<double> paneles = new List<double>();
 
-                for (int j = 0; j < numPaneles; j++)
+                // Utilizar un número diferente de paneles
+                for (int j = 0; j < numExperimentos; j++)
                 {
-                    Random random = new Random();
-                    int aleatorio = random.Next(a, b);
+                    double aleatorio = a + (b - a) * random.NextDouble();
                     paneles.Add(aleatorio);
                 }
-                listaExperimentos.Add(experimento);
+
                 experimento.listaValoresPaneles = paneles;
+                listaExperimentos.Add(experimento);
             }
+
             return listaExperimentos;
         }
-
-
     }
-    
-
 }
