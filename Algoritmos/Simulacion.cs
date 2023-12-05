@@ -19,25 +19,62 @@ namespace Prueba16Nov.Algoritmos
 
             return listaSalida;
         }
-        public List<int> GenerarValoresPseudoaleatoriosCongruenciales(int X0, int a, int c, int m, int totalvalores)
+
+        public List<int> GenerarValoresPseudoaleatoriosNOCongruenciales(int x, int total)
         {
-            // Paso1: inicializamos valor generado
-            int valorgenerado = X0;
             List<int> listaSalida = new List<int>();
-            for (int i = 0; i < totalvalores; i++)
+            
+
+            for (int i = 0; i < total; i++)
             {
-                //Paso 2: Calculamos el siguiente valor
-                int valorgeneradoaux = (a * valorgenerado + c) % m;
-                //Paso 3: guardamos el valor nuevo
-                listaSalida.Add(valorgeneradoaux);
-                //Paso 4: Seteamos el valor
-                valorgenerado = valorgeneradoaux;
+                // Paso 2: Calculamos el siguiente valor usando el método del cuadrado medio
+                int valorGeneradoAux = CalcularCuadradoMedio(ref x);
+
+                // Paso 3: Verificamos si el valor ya ha sido generado
+                if (listaSalida.Contains(valorGeneradoAux))
+                {
+                    break;
+                }
+
+                // Paso 4: Guardamos el valor nuevo
+                listaSalida.Add(valorGeneradoAux);
+
+                // Paso 6: Seteamos el siguiente valor
+                x = valorGeneradoAux;
             }
 
             return listaSalida;
         }
-        
+        public int CalcularCuadradoMedio(ref int x)
+        {
+            long cuadrado = (long)x * x;
+            string cuadradoStr = cuadrado.ToString();
+            int longitud = x.ToString().Length;
+
+            if (cuadradoStr.Length % 2 != 0)
+            {
+                cuadradoStr = 0 + cuadradoStr;
+
+            }
+            // Obtenemos los dígitos centrales
+            double resultado = (double)(((cuadradoStr.Length - longitud) / 2 + 1));
+            int inicio = (int)Math.Ceiling(resultado);
+
+
+
+            string nuevoValorStr = cuadradoStr.Substring(inicio , longitud);
+
+            // Convertimos el nuevo valor a entero
+            int nuevoValor = int.Parse(nuevoValorStr);
+
+            // Actualizamos la semilla para la siguiente iteración
+            x = nuevoValor;
+
+            return nuevoValor;
+        }
+
+        }
     }
+
     
 
-}
